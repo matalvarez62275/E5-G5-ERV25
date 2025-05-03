@@ -5,7 +5,7 @@ module register_bank #(
 )(
 	input en,
 	input clk,
-   input reset,
+   input nreset,
    input wire [SEL_WIDTH-1:0] busASelector,
    input wire [SEL_WIDTH-1:0] busBSelector,
    input wire [SEL_WIDTH-1:0] busCSelector,
@@ -19,9 +19,9 @@ integer i; // Loop variable
 assign busA = register_bank[busASelector];
 assign busB = register_bank[busBSelector];
 
-always @(posedge clk, negedge reset) begin
+always @(posedge clk, negedge nreset) begin
 	//Reset logic
-   if (!reset) begin
+   if (!nreset) begin
       for (i = 0; i < NUM_REGS; i = i + 1) begin
 			register_bank[i] = 0;
 		end
