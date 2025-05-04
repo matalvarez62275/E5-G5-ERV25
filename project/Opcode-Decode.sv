@@ -13,6 +13,10 @@ module Opcode-Decode (
 	output reg imm_en,	
 	output reg ALU_en,
 	output reg func3_valid,
+	output reg type_B_en,
+	output reg type_S_en,
+	output reg type_R_en,
+	output reg type_I_en;
 );
 
 	assign rd = inst[11:7];
@@ -32,6 +36,10 @@ module Opcode-Decode (
 			imm_en = 1;
 			ALU_en = 0;
 			func3_valid = 0;
+			type_B_en = 0;
+			type_S_en = 0;
+			type_R_en = 0;
+			type_I_en = 0;
 		end else if (opcode == 5'b01101 || opcode == 5'b00101) begin //Tipo U, inst unicas LUI, AUIPC
 			rd_en = 1;
 			rs1_en = 0;
@@ -39,6 +47,10 @@ module Opcode-Decode (
 			imm_en = 1;
 			ALU_en = 0;
 			func3_valid = 0;
+			type_B_en = 0;
+			type_S_en = 0;
+			type_R_en = 0;
+			type_I_en = 0;
 		end else begin 
 		
 			case(opcode[6:4]) 
@@ -49,8 +61,12 @@ module Opcode-Decode (
 				imm_en = 1;
 				ALU_en = 1;
 				func3_valid = 1;
-				
+				type_B_en = 0;
+				type_S_en = 0;
+				type_R_en = 0;
+				type_I_en = 1;
 				end
+				
 				3'b001: begin			
 					if(funct3 == 3'b101 || funct3 == 3'b001 )	begin //Instruccion ALU tipo R
 					rd_en = 1;
@@ -59,6 +75,10 @@ module Opcode-Decode (
 					imm_en = 0;
 					ALU_en = 1;
 					func3_valid = 1;
+					type_B_en = 0;
+					type_S_en = 0;
+					type_R_en = 1;
+					type_I_en = 0;
 					end else begin 		//Instruccion ALU tipo I		
 					rd_en = 1;
 					rs1_en = 1;
@@ -66,6 +86,10 @@ module Opcode-Decode (
 					imm_en = 1;	
 					ALU_en = 1;
 					func3_valid = 1;
+					type_B_en = 0;
+					type_S_en = 0;
+					type_R_en = 0;
+					type_I_en = 1;
 					end
 					
 				end
@@ -77,6 +101,10 @@ module Opcode-Decode (
 				imm_en = 0;
 				ALU_en = 1;
 				func3_valid = 1;
+				type_B_en = 0;
+				type_S_en = 0;
+				type_R_en = 1;
+				type_I_en = 0;
 				end
 				
 				3'b010: begin 				//Instruccion Store tipo S
@@ -86,6 +114,10 @@ module Opcode-Decode (
 				imm_en = 1;
 				ALU_en = 1;
 				func3_valid = 1;
+				type_B_en = 0;
+				type_S_en = 1;
+				type_R_en = 0;
+				type_I_en = 0;
 				end
 				
 				3'b110: begin 				//Instruccion Branch tipo B
@@ -94,7 +126,11 @@ module Opcode-Decode (
 				rs2_en = 1;
 				imm_en = 1;
 				ALU_en = 1;
-				func3_valid = 1;				
+				func3_valid = 1;
+				type_B_en = 1;
+				type_S_en = 0;
+				type_R_en = 0;
+				type_I_en = 0;
 				end
 				
 				3'b111: begin 				//Instruccion CSR tipo I
@@ -103,7 +139,11 @@ module Opcode-Decode (
 				rs2_en = 0;
 				imm_en = 1;
 				ALU_en = 1;
-				func3_valid = 1;				
+				func3_valid = 1;
+				type_B_en = 0;
+				type_S_en = 0;
+				type_R_en = 0;
+				type_I_en = 1;
 				end	
 				
 			end case
