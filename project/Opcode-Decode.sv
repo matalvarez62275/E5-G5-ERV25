@@ -27,19 +27,28 @@ module Opcode-Decode (
 	begin 
 		if(opcode == 5'b11011) begin //Tipo J, inst unica JAL
 			rd_en = 1;
+			rs1_en = 0;
+			rs2_en = 0;
 			imm_en = 1;
+			ALU_en = 0;
+			func3_valid = 0;
 		end else if (opcode == 5'b01101 || opcode == 5'b00101) begin //Tipo U, inst unicas LUI, AUIPC
 			rd_en = 1;
+			rs1_en = 0;
+			rs2_en = 0;
 			imm_en = 1;
+			ALU_en = 0;
+			func3_valid = 0;
 		end else begin 
 		
 			case(opcode[6:4]) 
 				3'b000: begin 				 //Instruccion LOAD tipo I
 				rd_en = 1;
 				rs1_en = 1;
+				rs2_en = 0;
+				imm_en = 1;
 				ALU_en = 1;
 				func3_valid = 1;
-				imm_en = 1;
 				
 				end
 				3'b001: begin			
@@ -47,50 +56,56 @@ module Opcode-Decode (
 					rd_en = 1;
 					rs1_en = 1;
 					rs2_en = 1;
+					imm_en = 0;
 					ALU_en = 1;
 					func3_valid = 1;
 					end else begin 		//Instruccion ALU tipo I		
 					rd_en = 1;
 					rs1_en = 1;
+					rs2_en =0;
+					imm_en = 1;	
 					ALU_en = 1;
 					func3_valid = 1;
-					imm_en = 1;	
 					end
 					
 				end
+				
 				3'b011: begin				//Instruccion ALU tipo R
 				rd_en = 1;
 				rs1_en = 1;
 				rs2_en = 1;
+				imm_en = 0;
 				ALU_en = 1;
 				func3_valid = 1;
-					
 				end
+				
 				3'b010: begin 				//Instruccion Store tipo S
+				rd_en = 0;
 				rs1_en = 1;
 				rs2_en = 1;
+				imm_en = 1;
 				ALU_en = 1;
 				func3_valid = 1;
-				imm_en = 1;
-				
 				end
 				
 				3'b110: begin 				//Instruccion Branch tipo B
+				rd_en = 0;
 				rs1_en = 1;
 				rs2_en = 1;
-				ALU_en = 1;
-				func3_valid = 1;
 				imm_en = 1;
-				
+				ALU_en = 1;
+				func3_valid = 1;				
 				end
+				
 				3'b111: begin 				//Instruccion CSR tipo I
 				rd_en = 1;
 				rs1_en = 1;
-				ALU_en = 1;
-				func3_valid = 1;
+				rs2_en = 0;
 				imm_en = 1;
-				
+				ALU_en = 1;
+				func3_valid = 1;				
 				end	
+				
 			end case
 		end 	
 	end
