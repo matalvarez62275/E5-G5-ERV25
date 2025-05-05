@@ -50,3 +50,93 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Quartus temporary and output files
+db/
+incremental_db/
+greybox_tmp/
+output_files/
+simulation/modelsim/
+*.rpt
+*.smsg
+*.chg
+*.log
+*.eqn
+*.pin
+*.sof
+*.pof
+*.jic
+*.map
+*.summary
+*.qws
+*.sld
+*.sdc~*
+
+# Auto-generated black-box files (unless you *need* them)
+*_bb.v
+*_inst.v
+*.vhd.bak
+*.bak
+
+# Quartus IP and system files (safe to keep .qip/.ip if you version control IP)
+*.qip~
+*.qsys~
+*.ip~
+*.sopcinfo
+*.qip.cmp
+
+# Hidden system files
+.DS_Store
+Thumbs.db
+
+# VS Code project files (if you use it)
+.vscode/
+
+# OS-specific
+*.swp
+*~
+
+# Quartus temporary and output files
+db/
+incremental_db/
+greybox_tmp/
+output_files/
+simulation/modelsim/
+*.rpt
+*.smsg
+*.chg
+*.log
+*.eqn
+*.pin
+*.sof
+*.pof
+*.jic
+*.map
+*.summary
+*.qws
+*.sld
+*.sdc~*
+
+# Auto-generated black-box files (unless you *need* them)
+*_bb.v
+*_inst.v
+*.vhd.bak
+*.bak
+
+# Quartus IP and system files (safe to keep .qip/.ip if you version control IP)
+*.qip~
+*.qsys~
+*.ip~
+*.sopcinfo
+*.qip.cmp
+
+# Hidden system files
+.DS_Store
+Thumbs.db
+
+# VS Code project files (if you use it)
+.vscode/
+
+# OS-specific
+*.swp
+*~

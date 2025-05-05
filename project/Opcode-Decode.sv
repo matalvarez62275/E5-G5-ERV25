@@ -1,11 +1,11 @@
-module Opcode-Decode (
+module OpcodeDecode (
    input wire[31:0] inst,
 	
 	output wire[4:0] rd,
 	output wire[4:0] rs1,
 	output wire[4:0] rs2,
-	output wire[2:0] func_3,
-	output wire ALU_flag;
+	output wire[2:0] func3,
+	output wire ALU_flag,
 
 	output reg rd_en,		
 	output reg rs1_en,	
@@ -16,18 +16,18 @@ module Opcode-Decode (
 	output reg type_B_en,
 	output reg type_S_en,
 	output reg type_R_en,
-	output reg type_I_en;
+	output reg type_I_en
 );
 
 	assign rd = inst[11:7];
 	assign rs1 = inst[19:15];
 	assign rs2 = inst[24:20];
-	assign func_3 = inst[14:12];
+	assign func3 = inst[14:12];
 	assign ALU_flag = inst[30];
 	
 	wire[4:0] opcode = inst[6:2];
 		
-	always @(opcode)
+	always @(*)
 	begin 
 		if(opcode == 5'b11011) begin //Tipo J, inst unica JAL
 			rd_en = 1;
@@ -53,7 +53,7 @@ module Opcode-Decode (
 			type_I_en = 0;
 		end else begin 
 		
-			case(opcode[6:4]) 
+			case(opcode[4:2]) 
 				3'b000: begin 				 //Instruccion LOAD tipo I
 				rd_en = 1;
 				rs1_en = 1;
@@ -68,7 +68,7 @@ module Opcode-Decode (
 				end
 				
 				3'b001: begin			
-					if(funct3 == 3'b101 || funct3 == 3'b001 )	begin //Instruccion ALU tipo R
+					if(func3 == 3'b101 || func3 == 3'b001 )	begin //Instruccion ALU tipo R
 					rd_en = 1;
 					rs1_en = 1;
 					rs2_en = 1;
@@ -146,7 +146,7 @@ module Opcode-Decode (
 				type_I_en = 1;
 				end	
 				
-			end case
+			endcase
 		end 	
 	end
 	
