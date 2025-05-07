@@ -28,9 +28,9 @@ module immBuilder(
 		end
 		5'b00100: begin
 			if(inst[14:12] == 3'b101 || inst[14:12] == 3'b001) begin		//tipo R shamt
-				//formar imm
+				imm = {inst[24:20],27'b0};
 			end else begin																//tipo I
-				//formar imm
+				imm = {{21{inst[31]}}, inst[30:20]};
 			end
 		default:
 			imm = 32'b0;
