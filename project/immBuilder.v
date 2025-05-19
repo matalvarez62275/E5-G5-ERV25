@@ -1,6 +1,5 @@
 module immBuilder(
 		input wire [31:0] inst,
-		input wire clk,
 	
 		output reg [31:0] imm
 );
@@ -8,7 +7,7 @@ module immBuilder(
 	
 	wire[4:0] opcode = inst[6:2];
 	
-	always @(posedge clk)
+	always @(*)
 	begin
 	
 		case(opcode)
