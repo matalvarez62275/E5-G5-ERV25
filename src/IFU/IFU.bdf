@@ -845,7 +845,7 @@ on the Quartus Prime software download page.
 (symbol
 	(rect 304 128 416 176)
 	(text "NOP" (rect 43 0 77 15)(font "Arial" (font_size 10)))
-	(text "inst12" (rect 8 33 38 45)(font "Intel Clear" ))
+	(text "inst8" (rect 8 33 32 45)(font "Intel Clear" ))
 	(port
 		(pt 112 24)
 		(output)
