@@ -31,7 +31,7 @@ module immBuilder(
 			end
 			5'b00100: begin
 				if(inst[14:12] == 3'b101 || inst[14:12] == 3'b001) begin		//tipo R shamt
-					imm = {inst[24:20],27'b0};
+					imm = {27'b0,inst[24:20]};
 				end else begin																//tipo I
 					imm = {{21{inst[31]}}, inst[30:20]};
 				end

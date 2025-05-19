@@ -1,5 +1,7 @@
-module OpcodeDecode (
+module Opcode-Decode (
    input wire[31:0] inst,
+	input wire clk,
+	
 	
 	output wire[4:0] rd,
 	output wire[4:0] rs1,
@@ -16,7 +18,7 @@ module OpcodeDecode (
 	output reg[1:0] ALU_flag,	// Alu_flag[0]: ALU op, Alu_flag[1]: ADD forzada
 	output reg is_JAL,
 	output reg is_JALR,
-	output reg is_BRANCH
+	output reg is_BRANCH,
 	output reg read_en,
 	output reg write_en
 	
@@ -26,11 +28,10 @@ module OpcodeDecode (
 	assign rs1 = inst[19:15];
 	assign rs2 = inst[24:20];
 	assign func3 = inst[14:12];
-	assign ALU_flag[0] = inst[30];
 	
 	wire[4:0] opcode = inst[6:2];
 		
-	always @(*)
+	always @(posedge clk)
 	begin 
 		if(opcode == 5'b11011) begin //Tipo J, inst unica JAL
 			rd_en = 0;
@@ -39,7 +40,7 @@ module OpcodeDecode (
 			imm_en = 1;
 			ALU_en = 0;
 			ALU_flag[0] = 0;	// ALU op
-			ALU_flag[1] = 1;	// ADD forzada
+			ALU_flag[1] = 0;	// ADD forzada
 			is_JAL = 1;
 			is_JALR = 0;
 			is_BRANCH = 0;
@@ -68,9 +69,9 @@ module OpcodeDecode (
 			rs1_en = 1;		
 			rs2_en = 0;
 			imm_en = 1;
-			ALU_en = 1;
+			ALU_en = 0;
 			ALU_flag[0] = 0;			// ALU op
-			ALU_flag[1] = 1;			// ADD forzada
+			ALU_flag[1] = 0;			// ADD forzada
 			is_JAL = 0;
 			is_JALR = 1;
 			is_BRANCH = 0;
@@ -83,7 +84,7 @@ module OpcodeDecode (
 		
 			case(opcode[4:2]) 
 				3'b000: begin 				 //Instruccion LOAD tipo I
-				rd_en = 1;			//rd enable ? o es interno del manejo de memoria?
+				rd_en = 0;			//rd enable ? o es interno del manejo de memoria? 0-> la ALU no escribe en Rd
 				rs1_en = 1;			//enable necesario?
 				rs2_en = 0;
 				imm_en = 1;			//enable necesario?
@@ -169,7 +170,24 @@ module OpcodeDecode (
 					busA_sel = 0;				// 0->PC, 1->rs1
 					busB_sel = 0;				//0 -> IMM, 1->rs2	
 					
-				end	
+				end
+			
+				default: begin 				//agregar is_valid? TO DO
+					rd_en = 0;			
+					rs1_en = 0;		
+					rs2_en = 0;
+					imm_en = 0;	
+					ALU_en = 0;
+					ALU_flag[0] = 0;			// ALU op
+					ALU_flag[1] = 0;			// ADD forzada
+					is_JAL = 0;
+					is_JALR = 0;
+					is_BRANCH = 0;
+					read_en = 0;
+					write_en = 0;
+					busA_sel = 0;				// 0->PC, 1->rs1
+					busB_sel = 0;	
+				end
 				
 			endcase
 		end 	
