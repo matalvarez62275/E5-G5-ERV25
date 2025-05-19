@@ -52,11 +52,11 @@ Mkfile.old
 dkms.conf
 
 # Quartus temporary and output files
-db/
-incremental_db/
-greybox_tmp/
-output_files/
-simulation/modelsim/
+project/db/
+project/incremental_db/
+project/greybox_tmp/
+project/output_files/
+project/simulation/modelsim/
 *.rpt
 *.smsg
 *.chg
@@ -140,3 +140,5 @@ Thumbs.db
 # OS-specific
 *.swp
 *~
+/project/simulation
+project/db/OpcodeDecode.db_info
