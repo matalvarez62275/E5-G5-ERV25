@@ -9,6 +9,7 @@ module jump_control (
     input wire        ALU_Z,
     input wire        ALU_N,
 	 output reg [31:0] JALR_address,
+	 output reg [31:0] imm_out,
     output reg        JALR_en,
     output reg        jump
 );
@@ -37,6 +38,7 @@ module jump_control (
         // Habilitación y dirección de JALR
         JALR_en = is_JALR & imm_en;
         JALR_address = is_JALR ? ((rs1 + imm) & 32'hFFFFFFFE) : 32'b0;
+		  imm_out = imm;
     end
 
 endmodule
