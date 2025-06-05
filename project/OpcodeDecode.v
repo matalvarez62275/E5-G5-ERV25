@@ -18,11 +18,11 @@ module OpcodeDecode (
 	output reg busA_sel,		//index - 10 - 0: PC, 1: rs1, de la ALU
 	output reg busB_sel,		//index - 9 - 0: imm, 1: rs2, de la ALU
 	output reg ALU_en,			//index - 8 - ALU_en	
-								//index - 7 - ALU_flag[1]: ADD forzada
-	output reg[1:0] ALU_flag,	//index - 6 - Alu_flag[0]: ALU op
+								//index - 7 - ALU_flag[1]: ADD forzada  ->
+	output reg[1:0] ALU_flag,	//index - 6 - Alu_flag[0]: ALU op	-> input selec de la ALU
 	output reg is_JAL,			//index - 5
 	output reg is_JALR,			//index - 4
-	output reg is_BRANCH,		//index - 3
+	output reg is_BRANCH,		//index - 3 						-> input branch de la ALU
 	output reg read_en,			//index - 2
 	output reg write_en,		//index - 1
 	output reg is_invalid 		//index - 0
@@ -164,57 +164,57 @@ module OpcodeDecode (
 			end
 			
 			5'b11100: begin 				//Instruccion CSR tipo I. TO DO
-			instFlags[14]= 0;			
+			instFlags[14] = 0;			
 			instFlags[13] = 0;		
 			instFlags[12] = 0;
 			instFlags[11] = 0;	
 			instFlags[10] = 0;
-			instFlags[9] = 0;			// ALU op
-			instFlags[8] = 0;			// ADD forzada
-			instFlags[7]	 = 0;
-			instFlags[6]= 0;
+			instFlags[9] = 0;			
+			instFlags[8] = 0;			
+			instFlags[7] = 0;
+			instFlags[6] = 0;
 			instFlags[5] = 0;
 			instFlags[4] = 0;
-			instFlags[3]= 0;
-			instFlags[2] = 0;				// 0->PC, 1->rs1
-			instFlags[1]= 0;				//0 -> IMM, 1->rs2	
+			instFlags[3] = 0;
+			instFlags[2] = 0;				
+			instFlags[1] = 0;				
 			instFlags[0] = 0;
 			end
 		
-			default: begin 				//agregar is_valid? TO DO
-				instFlags[14]= 0;			
+			default: begin 				//is_invalid
+			instFlags[14] = 0;			
 			instFlags[13] = 0;		
 			instFlags[12] = 0;
 			instFlags[11] = 0;	
 			instFlags[10] = 0;
-			instFlags[9] = 0;			// ALU op
-			instFlags[8] = 0;			// ADD forzada
-			instFlags[7]	 = 0;
-			instFlags[6]= 0;
+			instFlags[9] = 0;			
+			instFlags[8] = 0;			
+			instFlags[7] = 0;
+			instFlags[6] = 0;
 			instFlags[5] = 0;
 			instFlags[4] = 0;
-			instFlags[3]= 0;
-			instFlags[2] = 0;				// 0->PC, 1->rs1
-			instFlags[1]= 0;				//0 -> IMM, 1->rs2	
-			instFlags[0] = 1;
+			instFlags[3] = 0;
+			instFlags[2] = 0;				
+			instFlags[1] = 0;					
+			instFlags[0] = 1;	//is_invalid = 1 
 			end
 		endcase
 	end else begin 
 		//is invalid 
-		instFlags[14]= 0;			
+		instFlags[14] = 0;			
 			instFlags[13] = 0;		
 			instFlags[12] = 0;
 			instFlags[11] = 0;	
 			instFlags[10] = 0;
-			instFlags[9] = 0;			// ALU op
-			instFlags[8] = 0;			// ADD forzada
-			instFlags[7]	 = 0;
-			instFlags[6]= 0;
+			instFlags[9] = 0;			
+			instFlags[8] = 0;			
+			instFlags[7] = 0;
+			instFlags[6] = 0;
 			instFlags[5] = 0;
 			instFlags[4] = 0;
-			instFlags[3]= 0;
-			instFlags[2] = 0;				// 0->PC, 1->rs1
-			instFlags[1]= 0;				//0 -> IMM, 1->rs2	
+			instFlags[3] = 0;
+			instFlags[2] = 0;				
+			instFlags[1] = 0;			
 			instFlags[0] = 1;
 	end	
 end
