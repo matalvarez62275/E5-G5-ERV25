@@ -10,7 +10,7 @@ entity ALU is
         opcode : in STD_LOGIC_VECTOR(2 DOWNTO 0); -- Opcode with 3 bits.
         selec : in STD_LOGIC; -- Extra bit for handling opcodes.
         branch : in STD_LOGIC; -- Extra bit for handling opcodes.
-        jal: in STD_LOGIC; -- Absolute jump flag.
+        forced_sum: in STD_LOGIC; -- Forced add flag.
         enable: in STD_LOGIC; -- Enable ALU control flag.
         -- Outputs
         out_c : out STD_LOGIC_VECTOR(31 DOWNTO 0); -- Output word C
@@ -23,7 +23,7 @@ architecture behavioral of ALU is
     -- SIGNAL local_a, local_b, localsum : STD_LOGIC_VECTOR(32 DOWNTO 0);
 
 BEGIN
-    PROCESS (in_a, in_b, opcode, selec, jal)
+    PROCESS (in_a, in_b, opcode, selec, forced_sum)
         VARIABLE ans : STD_LOGIC_VECTOR(32 DOWNTO 0);
     BEGIN
         -- Check enable flag
@@ -31,9 +31,9 @@ BEGIN
             ans := "000000000000000000000000000000000";
         END IF;
 
-        -- Check jal (and other flags)
-        IF jal = '1' THEN
-            ans := STD_LOGIC_VECTOR(resize(unsigned(in_a), 33) + 4);
+        -- Check forced_sum (and other flags)
+        IF forced_sum = '1' THEN
+            ans := STD_LOGIC_VECTOR(resize(signed(in_a), 33) + resize(signed(in_b), 33));
         END IF;
         
         -- Branch operations
