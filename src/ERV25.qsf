@@ -72,7 +72,14 @@ set_global_assignment -name BDF_FILE testIFU_JMPCNTRL.bdf
 set_global_assignment -name VECTOR_WAVEFORM_FILE IFU_JMPCTRL_sim.vwf
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform.vwf
 set_global_assignment -name QIP_FILE MISC/par_add_2x32b.qip
+set_global_assignment -name QIP_FILE MISC/Nop.qip
+set_global_assignment -name VERILOG_FILE stageLatches/OP_stageLatch.v
+set_global_assignment -name VERILOG_FILE stageLatches/DE_stageLatch.v
+set_global_assignment -name VERILOG_FILE opcode_decode/immBuilder.v
+set_global_assignment -name VERILOG_FILE opcode_decode/opcodeDecode.v
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VERILOG_FILE stageLatches/EX_stageLatch.v
+set_global_assignment -name VHDL_FILE ALU/ALU.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
