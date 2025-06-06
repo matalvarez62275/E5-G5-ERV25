@@ -21,45 +21,37 @@ on the Quartus Prime software download page.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 232 128)
-	(text "fetch" (rect 5 0 25 12)(font "Arial" ))
-	(text "inst" (rect 8 96 20 108)(font "Arial" ))
+	(rect 16 16 304 96)
+	(text "add_2x32b_00lsbs" (rect 5 0 79 12)(font "Arial" ))
+	(text "inst" (rect 8 64 20 76)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
-		(text "curr_PC[31..0]" (rect 0 0 59 12)(font "Arial" ))
-		(text "curr_PC[31..0]" (rect 21 27 80 39)(font "Arial" ))
+		(text "A[31..0]" (rect 0 0 31 12)(font "Arial" ))
+		(text "A[31..0]" (rect 21 27 52 39)(font "Arial" ))
 		(line (pt 0 32)(pt 16 32)(line_width 3))
 	)
 	(port
 		(pt 0 48)
 		(input)
-		(text "clk" (rect 0 0 10 12)(font "Arial" ))
-		(text "clk" (rect 21 43 31 55)(font "Arial" ))
-		(line (pt 0 48)(pt 16 48)(line_width 1))
+		(text "B[31..0]" (rect 0 0 29 12)(font "Arial" ))
+		(text "B[31..0]" (rect 21 43 50 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 3))
 	)
 	(port
-		(pt 0 64)
-		(input)
-		(text "nreset" (rect 0 0 24 12)(font "Arial" ))
-		(text "nreset" (rect 21 59 45 71)(font "Arial" ))
-		(line (pt 0 64)(pt 16 64)(line_width 1))
-	)
-	(port
-		(pt 0 80)
-		(input)
-		(text "en" (rect 0 0 9 12)(font "Arial" ))
-		(text "en" (rect 21 75 30 87)(font "Arial" ))
-		(line (pt 0 80)(pt 16 80)(line_width 1))
-	)
-	(port
-		(pt 216 32)
+		(pt 288 32)
 		(output)
-		(text "nxt_PC[31..0]" (rect 0 0 54 12)(font "Arial" ))
-		(text "nxt_PC[31..0]" (rect 141 27 195 39)(font "Arial" ))
-		(line (pt 216 32)(pt 200 32)(line_width 3))
+		(text "aligned_sum_out[(OUT_WIDTH-1)..0]" (rect 0 0 154 12)(font "Arial" ))
+		(text "aligned_sum_out[(OUT_WIDTH-1)..0]" (rect 113 27 267 39)(font "Arial" ))
+		(line (pt 288 32)(pt 272 32)(line_width 3))
 	)
+	(parameter
+		"OUT_WIDTH"
+		"13"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
-		(rectangle (rect 16 16 200 96)(line_width 1))
+		(rectangle (rect 16 16 272 64)(line_width 1))
 	)
+	(annotation_block (parameter)(rect 304 -64 404 16))
 )
