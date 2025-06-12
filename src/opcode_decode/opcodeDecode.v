@@ -128,7 +128,7 @@ module OpcodeDecode (
 			end
 			
 			5'b01000: begin 				//Instruccion Store tipo S
-			instFlags[14]	= 1;			//rd enable ? o es interno del manejo de memoria?
+			instFlags[14]	= 0;			//rd enable ? o es interno del manejo de memoria?
 			instFlags[13]	 = 1;			//enable necesario?
 			instFlags[12]	 = 1;			//salen datos
 			instFlags[11]	 = 1;			//enable necesario?
