@@ -16,7 +16,7 @@ def read(f_in):
         return [int(i, 16) for i in f if len(i) != 0]
 
 
-def write(f_out, data, width=32, depth=8192):
+def write(f_out, data, width=32, depth=2048):
     if len(data) > depth:
         print('Data larger than memory size, abort.')
     else:
