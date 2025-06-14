@@ -36,17 +36,17 @@ BEGIN
         -- Check forced_sum (and other flags)
         IF forced_sum = '1' THEN
             ans := STD_LOGIC_VECTOR(resize(signed(in_a), 33) + resize(signed(in_b), 33));
-        END IF;
+       
 
-        IF is_jal = '1' THEN
+        ELSIF is_jal = '1' THEN
             ans := STD_LOGIC_VECTOR(resize(unsigned(in_a), 33) + 4);
-        END IF;
+        
 
-        IF is_jalr = '1' THEN
+        ELSIF is_jalr = '1' THEN
             ans := STD_LOGIC_VECTOR(resize(unsigned(in_a), 33) + 4);
-        END IF;
+        
         -- Branch operations
-        IF branch = '1' THEN
+        ELSIF branch = '1' THEN
             CASE opcode IS
                 WHEN "000" =>  -- BEQ
                     IF signed(in_a) = signed(in_b) THEN

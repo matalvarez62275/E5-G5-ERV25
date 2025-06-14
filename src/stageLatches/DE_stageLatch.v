@@ -30,6 +30,7 @@ always @(posedge clk) begin
 		rs2_sl1 <= 0;
 		imm_sl1 <= 0;
 		PC_sl1 <= 0;
+		func3_sl1 <= 0;
 
 	end else begin
 		instFlag_sl1 <= instFlag;
@@ -38,6 +39,7 @@ always @(posedge clk) begin
 		rs2_sl1 <= rs2;
 		imm_sl1 <= imm;
 		PC_sl1 <= PC;
+		func3_sl1 <= func3;
 
 	end
 end
