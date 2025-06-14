@@ -25,7 +25,7 @@ module immBuilder(
 			5'b01000: begin						//Tipo S
 				imm = {{21{inst[31]}}, inst[30:25], inst[11:8], inst[7]};
 			end
-			5'b00000, 5'b11100: begin			//Tipo I
+			5'b00000, 5'b11100, 5'b11001: begin			//Tipo I
 				imm = {{21{inst[31]}}, inst[30:20]};
 			end
 			5'b00100: begin

@@ -76,12 +76,12 @@ module OpcodeDecode (
 			end
 			5'b11001: begin		// JALR tipo I
 			instFlags[14]	= 1;			
-			instFlags[13]	 = 1;		
+			instFlags[13]	 = 0;		
 			instFlags[12]	 = 0;
 			instFlags[11]	 = 1;
 			instFlags[10]	 = 0;				// 0->PC, 1->rs1
-			instFlags[9]	 = 1;				//0 -> IMM, 1->rs2	
-			instFlags[8]	 = 0;
+			instFlags[9]	 = 0;				//0 -> IMM, 1->rs2	
+			instFlags[8]	 = 1;
 			instFlags[7]	= 0;			// ADD forzada
 			instFlags[6]	= 0;			// ALU op
 			instFlags[5]	 = 0;
