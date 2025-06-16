@@ -142,3 +142,6 @@ Thumbs.db
 *~
 
 *.db_info
+
+/src/simulation/*
+/src/db/*
