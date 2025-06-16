@@ -20,30 +20,27 @@ module DE_stageLatch(
 		
 
 );
-
-
-always @(posedge clk) begin 
-	if(en == 0)begin 
-		instFlag_sl1 <= 0;
-		rd_sl1 <= 0;
-		rs1_sl1 <= 0;
-		rs2_sl1 <= 0;
-		imm_sl1 <= 0;
-		PC_sl1 <= 0;
-		func3_sl1 <= 0;
-
-	end else begin
-		instFlag_sl1 <= instFlag;
-		rd_sl1 <= rd;
-		rs1_sl1 <= rs1;
-		rs2_sl1 <= rs2;
-		imm_sl1 <= imm;
-		PC_sl1 <= PC;
-		func3_sl1 <= func3;
-
+always @(posedge clk) 
+begin 
+	if(en == 0)
+		begin 
+			instFlag_sl1 <= 0;
+			rd_sl1 <= 0;
+			rs1_sl1 <= 0;
+			rs2_sl1 <= 0;
+			imm_sl1 <= 0;
+			PC_sl1 <= 0;
+			func3_sl1 <= 0;
+		end
+	else
+		begin
+			instFlag_sl1 <= instFlag;
+			rd_sl1 <= rd;
+			rs1_sl1 <= rs1;
+			rs2_sl1 <= rs2;
+			imm_sl1 <= imm;
+			PC_sl1 <= PC;
+			func3_sl1 <= func3;
+		end
 	end
-end
-
-
-
 endmodule 
