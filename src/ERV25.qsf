@@ -89,7 +89,6 @@ set_global_assignment -name VERILOG_FILE IFU/IFU_NOP_ctrl.v
 set_global_assignment -name BDF_FILE NOP_En_Test.bdf
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform3.vwf
 set_global_assignment -name BDF_FILE testALU.bdf
-set_global_assignment -name VERILOG_FILE simulation/testbench_instruc.v
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
 set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH testbench_instruc -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_NAME testbench_instruc -section_id eda_simulation
