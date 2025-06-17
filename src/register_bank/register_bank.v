@@ -10,14 +10,17 @@ module register_bank #(
    input wire [SEL_WIDTH-1:0] busBSelector,
    input wire [SEL_WIDTH-1:0] busCSelector,
 	input [REG_WIDTH-1:0] busC,
+	input wire busA_en,
+	input wire busB_en,
+	
    output [REG_WIDTH-1:0] busA,
    output [REG_WIDTH-1:0] busB
 );
 reg [REG_WIDTH-1:0] register_bank[NUM_REGS-1:0];
 integer i; // Loop variable
 
-assign busA = register_bank[busASelector];
-assign busB = register_bank[busBSelector];
+assign busA = busA_en ? register_bank[busASelector] : 32'b0;
+assign busB = busB_en ? register_bank[busBSelector] : 32'b0;
 
 always @(posedge clk, negedge nreset) begin
 	//Reset logic
