@@ -39,7 +39,7 @@
 
 set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE22F17C6
-set_global_assignment -name TOP_LEVEL_ENTITY ALU_test
+set_global_assignment -name TOP_LEVEL_ENTITY ERV25
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 24.1STD.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "00:01:07  MAY 02, 2025"
 set_global_assignment -name LAST_QUARTUS_VERSION "24.1std.0 Lite Edition"
@@ -60,6 +60,10 @@ set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VERILOG_FILE memory/LSU_sign.v
+set_global_assignment -name VERILOG_FILE memory/LSU.v
+set_global_assignment -name VERILOG_FILE memory/mem_addr_builder.v
+set_global_assignment -name VERILOG_FILE GPIO/GPIO.v
 set_global_assignment -name BDF_FILE ALU_test.bdf
 set_global_assignment -name BDF_FILE ERV25.bdf
 set_global_assignment -name VERILOG_FILE IFU/fetch.v
@@ -91,7 +95,10 @@ set_global_assignment -name QIP_FILE MISC/MUX_1b.qip
 set_global_assignment -name VERILOG_FILE IFU/IFU_NOP_ctrl.v
 set_global_assignment -name BDF_FILE NOP_En_Test.bdf
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform3.vwf
-set_global_assignment -name VERILOG_FILE MISC/add32b_align4by_truncate.v
 set_global_assignment -name VERILOG_FILE ALU/ALU.v
 set_global_assignment -name VERILOG_FILE halt_control/halt_control.v
+set_global_assignment -name QIP_FILE MISC/peripheral_decoder.qip
+set_global_assignment -name QIP_FILE MISC/peripheral_mux.qip
+set_global_assignment -name QIP_FILE MISC/mem_peripheral_mux.qip
+set_global_assignment -name QIP_FILE memory/main_memory.qip
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

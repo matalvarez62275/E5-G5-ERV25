@@ -33,7 +33,7 @@ module OpcodeDecode (
 	always @(*)
 	begin
 	// Instruction word size
-	// ERV25 only implements RV32I extension and thus all instructions' lower bits ar
+	// ERV25 only implements RV32I extension and thus all instructions' lower bits are
 	// 5'bxxx11 - where 3'bxxx is never 3'b111
 	if(inst[1:0] == 2'b11)
 		begin

@@ -22,20 +22,20 @@ on the Quartus Prime software download page.
 (header "symbol" (version "1.2"))
 (symbol
 	(rect 64 64 208 144)
-	(text "bus_MUX_5b" (rect 34 0 127 15)(font "Arial" (font_size 10)))
+	(text "mem_peripheral_mux" (rect 10 0 158 15)(font "Arial" (font_size 10)))
 	(text "inst" (rect 8 65 24 76)(font "Arial" ))
 	(port
 		(pt 0 56)
 		(input)
-		(text "data1x[4..0]" (rect 0 0 68 13)(font "Arial" (font_size 8)))
-		(text "data1x[4..0]" (rect 4 44 72 57)(font "Arial" (font_size 8)))
+		(text "data1x[31..0]" (rect 0 0 75 13)(font "Arial" (font_size 8)))
+		(text "data1x[31..0]" (rect 4 44 79 57)(font "Arial" (font_size 8)))
 		(line (pt 0 56)(pt 64 56)(line_width 3))
 	)
 	(port
 		(pt 0 40)
 		(input)
-		(text "data0x[4..0]" (rect 0 0 68 13)(font "Arial" (font_size 8)))
-		(text "data0x[4..0]" (rect 4 28 72 41)(font "Arial" (font_size 8)))
+		(text "data0x[31..0]" (rect 0 0 75 13)(font "Arial" (font_size 8)))
+		(text "data0x[31..0]" (rect 4 28 79 41)(font "Arial" (font_size 8)))
 		(line (pt 0 40)(pt 64 40)(line_width 3))
 	)
 	(port
@@ -48,8 +48,8 @@ on the Quartus Prime software download page.
 	(port
 		(pt 144 48)
 		(output)
-		(text "result[4..0]" (rect 0 0 61 13)(font "Arial" (font_size 8)))
-		(text "result[4..0]" (rect 90 36 151 49)(font "Arial" (font_size 8)))
+		(text "result[31..0]" (rect 0 0 68 13)(font "Arial" (font_size 8)))
+		(text "result[31..0]" (rect 84 36 152 49)(font "Arial" (font_size 8)))
 		(line (pt 144 48)(pt 80 48)(line_width 3))
 	)
 	(drawing
