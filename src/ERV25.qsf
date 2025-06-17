@@ -89,6 +89,7 @@ set_global_assignment -name VERILOG_FILE IFU/IFU_NOP_ctrl.v
 set_global_assignment -name VERILOG_FILE halt_control/halt_control.v
 set_global_assignment -name BDF_FILE testALU.bdf
 set_global_assignment -name VERILOG_FILE ALU/ALU__Veri.v
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform3.vwf
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top

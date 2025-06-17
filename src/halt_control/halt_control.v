@@ -42,26 +42,26 @@ assign regaccess_blocked = regaccess_needs_alu_write || regaccess_needs_postalu_
 // ---------
 
 // -------- Reg access has instruction that needs a register that has a pending load
-wire [12:0] addr_sl_DE;
-wire [12:0] addr_MEM;
+//wire [12:0] addr_sl_DE;
+//wire [12:0] addr_MEM;
 
-add_2x32b_00lsbs #(.OUT_WIDTH(13)) addr_calc_sl_DE (
-    .A(rs1_data_sl_DE),
-    .B(imm_sl_DE),
-    .aligned_sum_out(addr_sl_DE)
-);
+//add_2x32b_00lsbs #(.OUT_WIDTH(13)) addr_calc_sl_DE (
+//    .A(rs1_data_sl_DE),
+//    .B(imm_sl_DE),
+//    .aligned_sum_out(addr_sl_DE)
+//);
 
-add_2x32b_00lsbs #(.OUT_WIDTH(13)) addr_calc_MEM (
-    .A(rs1_data_MEM),
-    .B(imm_MEM),
-    .aligned_sum_out(addr_MEM)
-);
+//add_2x32b_00lsbs #(.OUT_WIDTH(13)) addr_calc_MEM (
+//    .A(rs1_data_MEM),
+//    .B(imm_MEM),
+//    .aligned_sum_out(addr_MEM)
+//);
 
-wire mem_hazard = instFlag_sl_DE[2] && instFlag_Alu[1] && (addr_sl_DE == addr_MEM);
+//wire mem_hazard = instFlag_sl_DE[2] && instFlag_Alu[1] && (addr_sl_DE == addr_MEM);
 // ---------
 
 
-always @(decoded_blocked, regaccess_blocked, mem_hazard) begin
+always @(decoded_blocked, regaccess_blocked) begin
 	IFU_en <= 1;
 	DE_en <= 1;
 	OP_en <= 1;
@@ -73,7 +73,7 @@ always @(decoded_blocked, regaccess_blocked, mem_hazard) begin
 		IFU_en <= 0;
 	end 
 	// hazard in operand stage
-	else if(regaccess_blocked || mem_hazard) begin
+	else if(regaccess_blocked) begin
 			OP_en <= 0;
 			DE_en <= 0;
 			IFU_en <= 0;
