@@ -5,21 +5,22 @@ module halt_control(
 	input wire [4:0] rd_OpDec,
 	input wire [14:0] instFlag_sl_DE,
 	input wire [4:0] rs1_sl_DE,
-	input wire [31:0] rs1_data_sl_DE,
 	input wire [4:0] rs2_sl_DE,
-	input wire [31:0] imm_sl_DE,
 	input wire [4:0] rd_sl_DE,
 	input wire [14:0] instFlag_Alu,
+	input wire [4:0] rs1_Alu,
+	input wire [4:0] rs2_Alu,
 	input wire [4:0] rd_Alu,
 	input wire [14:0] instFlag_sl_EX,
 	input wire [4:0] rd_sl_EX,
-	input wire [31:0] rs1_data_MEM,
-	input wire [31:0] imm_MEM,
+	input wire inst_is_jalr,
+	input wire inst_is_branch,
 	
 	output reg IFU_en,
 	output reg DE_en,
 	output reg OP_en,
-	output reg EX_en
+	output reg EX_en,
+	output reg IFU_flush
 );
 
 
@@ -41,31 +42,23 @@ wire regaccess_blocked;
 assign regaccess_blocked = regaccess_needs_alu_write || regaccess_needs_postalu_write;
 // ---------
 
-// -------- Reg access has instruction that needs a register that has a pending load
-//wire [12:0] addr_sl_DE;
-//wire [12:0] addr_MEM;
+// -------- JALR y branch control
+wire jalr_rs1_dep = inst_is_jalr && (rs1_OpDec != rs1_sl_DE);
+wire branch_rs_dep =
+    inst_is_branch && (
+        ((rs1_OpDec != rs1_sl_DE) && (rs2_OpDec != rs2_sl_DE)) ||
+        ((rs1_OpDec != rs1_Alu) && (rs2_OpDec != rs2_Alu))
+	);
+wire jump_stall;
+assign jump_stall = jalr_rs1_dep || branch_rs_dep;
+//
 
-//add_2x32b_00lsbs #(.OUT_WIDTH(13)) addr_calc_sl_DE (
-//    .A(rs1_data_sl_DE),
-//    .B(imm_sl_DE),
-//    .aligned_sum_out(addr_sl_DE)
-//);
-
-//add_2x32b_00lsbs #(.OUT_WIDTH(13)) addr_calc_MEM (
-//    .A(rs1_data_MEM),
-//    .B(imm_MEM),
-//    .aligned_sum_out(addr_MEM)
-//);
-
-//wire mem_hazard = instFlag_sl_DE[2] && instFlag_Alu[1] && (addr_sl_DE == addr_MEM);
-// ---------
-
-
-always @(decoded_blocked, regaccess_blocked) begin
+always @(decoded_blocked, regaccess_blocked, jump_stall) begin
 	IFU_en <= 1;
 	DE_en <= 1;
 	OP_en <= 1;
 	EX_en <= 1;
+	IFU_flush <= 0;
 	
 	// hazard in decoding stage
 	if(decoded_blocked) begin
@@ -74,9 +67,13 @@ always @(decoded_blocked, regaccess_blocked) begin
 	end 
 	// hazard in operand stage
 	else if(regaccess_blocked) begin
-			OP_en <= 0;
-			DE_en <= 0;
-			IFU_en <= 0;
+		OP_en <= 0;
+		DE_en <= 0;
+		IFU_en <= 0;
+	end
+	else if(jump_stall) begin
+		IFU_en <=0;
+		IFU_flush <=1;
 	end
 end
 

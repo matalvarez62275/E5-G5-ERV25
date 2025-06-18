@@ -1,44 +1,34 @@
 module jump_control (
-    input wire        is_JAL,
-    input wire        is_JALR,
-    input wire        is_branch,
-    input wire [2:0]  branch,
-    input wire        imm_en,
-    input wire [31:0] imm,
-    input wire [31:0] rs1,
-    input wire        ALU_Z,
-    input wire        ALU_N,
-	 output reg [31:0] JALR_address,
-	 output reg [31:0] imm_out,
-    output reg        JALR_en,
-    output reg        jump
+	input [31:0] imm_DE,
+	input imm_en_DE,
+	input [31:0] rs1_data_DE,
+	input is_JALR_DE,
+	input ALU_Z,
+	input ALU_N,
+	
+	input wire [2:0] funct3_OP,
+	input wire is_branch_Alu,
+
+	input clk,
+	input en,
+	input nreset,
+	
+	output wire branch_taken,
+	output wire JALR_taken,
+	output wire [31:0] JALR_address
 );
 
-    reg branch_taken;
+wire is_jalr = en & is_JALR_DE;
+wire is_branch = en & is_branch_Alu;
 
-    always @(*) begin
-        // Evaluar condición solo si es una instrucción de tipo BRANCH
-        if (is_branch) begin
-            case (branch)
-                3'b000: branch_taken = ALU_Z;        // BEQ
-                3'b001: branch_taken = ~ALU_Z;       // BNE
-                3'b100: branch_taken = ALU_N;        // BLT
-                3'b101: branch_taken = ~ALU_N;       // BGE
-                3'b110: branch_taken = ALU_N;        // BLTU
-                3'b111: branch_taken = ~ALU_N;       // BGEU
-                default: branch_taken = 1'b0;
-            endcase
-        end else begin
-            branch_taken = 1'b0;
-        end
+wire branch_BEQ_BNE = (funct3_OP[2:1] == 2'b00) && ((!funct3_OP[0]) == ALU_Z); // 0: beq, 1: bne
+wire branch_other = ((funct3_OP[2:1] == 2'b10) || (funct3_OP[2:1] == 2'b11)) && (funct3_OP[0] ^ ALU_N); // 0: blt, branch si n=1, 1: bge, branch si n=0, unsigned o signed
+assign branch_taken = is_branch && (branch_other || branch_BEQ_BNE);
 
-        // Determinar si hay salto
-        jump = imm_en & (is_JAL | (is_branch & branch_taken));
+wire [31:0] rs1plusimm = (rs1_data_DE + imm_DE) & 32'hFFFFFFFE;
 
-        // Habilitación y dirección de JALR
-        JALR_en = is_JALR & imm_en;
-        JALR_address = is_JALR ? ((rs1 + imm) & 32'hFFFFFFFE) : 32'b0;
-		  imm_out = imm;
-    end
+assign JALR_taken = is_jalr & imm_en_DE;
+ 
+assign JALR_address = is_jalr ? rs1plusimm : 32'b0;
 
 endmodule
