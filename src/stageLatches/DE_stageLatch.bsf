@@ -137,6 +137,6 @@ on the Quartus Prime software download page.
 		(line (pt 224 128)(pt 208 128)(line_width 3))
 	)
 	(drawing
-		(rectangle (rect 8 16 200 192))
+		(rectangle (rect 16 16 208 192))
 	)
 )

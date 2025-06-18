@@ -16,30 +16,36 @@ module ALU (
 reg [32:0] ans;	// Extra bit to handle overflow
 
 always @(*) begin
-	ans 	= 33'b0;
+	ans 		= 33'b0;
    result 	= 32'b0;
 	ALU_Z 	= 1'b0;
    ALU_N 	= 1'b0;
 
-	if (en == 1'b0) 
-	    ans = 33'b0;
-	else if (add_forced == 1'b1)	// LUI and AUIPC
+	if (en == 1'b0)
+		ans = 33'b0;
+		 
+	// LUI and AUIPC
+	else if (add_forced == 1'b1)
 	    ans = $signed({1'b0, in_a}) + $signed({1'b0, in_b});
-	else if (is_JAL == 1'b1 || is_JALR == 1'b1)	// JAL and JALR
+	
+	// JAL and JALR
+	else if (is_JAL == 1'b1 || is_JALR == 1'b1)	
 	    ans = {1'b0, in_a} + 4;
-	else if (is_branch == 1'b1)	// BRANCH
-		begin
-			case (func3)
-				3'b000: ans = ($signed(in_a) == $signed(in_b)) ? 33'b1 : 33'b0;	// BEQ
-            3'b001: ans = ($signed(in_a) != $signed(in_b)) ? 33'b1 : 33'b0; // BNE
-            3'b100: ans = ($signed(in_a) < $signed(in_b)) ? 33'b1 : 33'b0;  // BLT
-            3'b101: ans = ($signed(in_a) >= $signed(in_b)) ? 33'b1 : 33'b0; // BGE
-            3'b110: ans = (in_a < in_b) ? 33'b1 : 33'b0;                    // BLTU
-            3'b111: ans = (in_a >= in_b) ? 33'b1 : 33'b0;                   // BGEU
-            default: ans = 33'b0;
-        	endcase
-    	end
-	else	// ALU operations
+		 
+	// BRANCH
+	else if (is_branch == 1'b1) begin
+		
+		// BLTU and BGEU
+		if (func3[2])
+			ans = in_a - in_b;
+		
+		// BEQ, BNE, BLT and BGE
+		else
+			ans = $signed(in_a) - $signed(in_b);	
+	end
+	
+	// ALU operations
+	else	
 		begin
 			case (func3)
 				
@@ -56,11 +62,10 @@ always @(*) begin
             3'b111: ans = {1'b0, in_a} & {1'b0, in_b}; // AND
             3'b001: ans = {1'b0, in_a} << in_b[4:0];   // SLL
                 
-				3'b101:
-				begin
+				3'b101: begin
 					if (ALU_op == 1'b0)
 						ans = {1'b0, in_a} >> in_b[4:0]; // SRL
-               else
+					else
 						ans = $signed({1'b0, in_a}) >>> in_b[4:0]; // SRA
             end
 
