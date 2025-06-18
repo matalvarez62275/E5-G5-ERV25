@@ -25,12 +25,14 @@ architecture behavioral of ALU is
     -- SIGNAL local_a, local_b, localsum : STD_LOGIC_VECTOR(32 DOWNTO 0);
 
 BEGIN
-    PROCESS (in_a, in_b, opcode, selec, forced_sum, is_jal, is_jalr)
+    PROCESS (enable, in_a, in_b, opcode, selec, forced_sum, is_jal, is_jalr, branch)
         VARIABLE ans : STD_LOGIC_VECTOR(32 DOWNTO 0);
+        VARIABLE force_N : STD_LOGIC; -- for unsigned operations forcing N flag
     BEGIN
         -- Check enable flag
         IF enable = '0' THEN
             ans := "000000000000000000000000000000000";
+            force_N := '0';
         END IF;
 
         -- Check forced_sum (and other flags)
@@ -49,46 +51,38 @@ BEGIN
         ELSIF branch = '1' THEN
             CASE opcode IS
                 WHEN "000" =>  -- BEQ
-                    IF signed(in_a) = signed(in_b) THEN
-                        ans := (others => '0'); ans(0) := '1';
-                    ELSE
-                        ans := (others => '0');
-                    END IF;
+                    -- A equals B then the substraction is 0, flag Z is set
+                    ans := STD_LOGIC_VECTOR(resize(signed(in_a), 33) - resize(signed(in_b), 33));
             
                 WHEN "001" =>  -- BNE
-                    IF signed(in_a) /= signed(in_b) THEN
-                        ans := (others => '0'); ans(0) := '1';
-                    ELSE
-                        ans := (others => '0');
-                    END IF;
+                    -- A is not equal to B then the substraction is not 0, flag Z is not set
+                    ans := STD_LOGIC_VECTOR(resize(signed(in_a), 33) - resize(signed(in_b), 33));
             
                 WHEN "100" =>  -- BLT
-                    IF signed(in_a) < signed(in_b) THEN
-                        ans := (others => '0'); ans(0) := '1';
-                    ELSE
-                        ans := (others => '0');
-                    END IF;
+                    -- A is less than B then the substraction is less than 0, flag N is set
+                    ans := STD_LOGIC_VECTOR(resize(signed(in_a), 33) - resize(signed(in_b), 33));
             
                 WHEN "101" =>  -- BGE
-                    IF signed(in_a) >= signed(in_b) THEN
-                        ans := (others => '0'); ans(0) := '1';
-                    ELSE
-                        ans := (others => '0');
-                    END IF;
+                    -- A is more than or equal to B then the substraction is more than 0, flag N is not set
+                    ans := STD_LOGIC_VECTOR(resize(signed(in_a), 33) - resize(signed(in_b), 33));
             
                 WHEN "110" =>  -- BLTU
+                    -- A is less than B then the flag N is set and the output is the substraction
                     IF unsigned(in_a) < unsigned(in_b) THEN
-                        ans := (others => '0'); ans(0) := '1';
+                        force_N := '1';
                     ELSE
-                        ans := (others => '0');
+                        force_N := '0';
                     END IF;
+                    ans := STD_LOGIC_VECTOR(resize(unsigned(in_a), 33) - resize(unsigned(in_b), 33));
             
                 WHEN "111" =>  -- BGEU
+                    -- A is equal or greater than B then the output MSB is set to 0, flag N is not set
                     IF unsigned(in_a) >= unsigned(in_b) THEN
-                        ans := (others => '0'); ans(0) := '1';
+                        force_N := '0';
                     ELSE
-                        ans := (others => '0');
+                        force_N := '1';
                     END IF;
+                    ans := STD_LOGIC_VECTOR(resize(unsigned(in_a), 33) - resize(unsigned(in_b), 33));
             
                 WHEN OTHERS =>
                     ans := (others => '0');
@@ -140,8 +134,9 @@ BEGIN
             out_z <= '0';
         END IF;
         -- Negative flag
-        IF signed(ans) < 0 THEN
+        IF (force_N = '1') OR (signed(ans) < 0) THEN
             out_n <= '1';
+            force_N := '0';
         ELSE
             out_n <= '0';
         END IF;
