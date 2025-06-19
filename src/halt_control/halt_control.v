@@ -15,12 +15,14 @@ module halt_control(
 	input wire [4:0] rd_sl_EX,
 	input wire inst_is_jalr,
 	input wire inst_is_branch,
+	input wire clk,
+	input wire nreset,
 	
 	output reg IFU_en,
 	output reg DE_en,
 	output reg OP_en,
 	output reg EX_en,
-	output reg IFU_flush
+	output wire IFU_flush
 );
 
 
@@ -43,9 +45,9 @@ assign regaccess_blocked = regaccess_needs_alu_write || regaccess_needs_postalu_
 // ---------
 
 // -------- JALR y branch control
-wire jalr_rs1_dep = inst_is_jalr && (rs1_OpDec != rs1_sl_DE);
+wire jalr_rs1_dep = ~instFlag_sl_DE[4] && inst_is_jalr && (rs1_OpDec != rs1_sl_DE);
 wire branch_rs_dep =
-    inst_is_branch && (
+    ~instFlag_Alu[3] && inst_is_branch && (
         ((rs1_OpDec != rs1_sl_DE) && (rs2_OpDec != rs2_sl_DE)) ||
         ((rs1_OpDec != rs1_Alu) && (rs2_OpDec != rs2_Alu))
 	);
@@ -58,7 +60,6 @@ always @(decoded_blocked, regaccess_blocked, jump_stall) begin
 	DE_en <= 1;
 	OP_en <= 1;
 	EX_en <= 1;
-	IFU_flush <= 0;
 	
 	// hazard in decoding stage
 	if(decoded_blocked) begin
@@ -72,10 +73,31 @@ always @(decoded_blocked, regaccess_blocked, jump_stall) begin
 		IFU_en <= 0;
 	end
 	else if(jump_stall) begin
-		IFU_en <=0;
-		IFU_flush <=1;
+		IFU_en <= 0;
 	end
 end
 
+//Flush instrucciones de salto
+reg jump_stall_prev;
+reg flushing;
+
+always @(posedge clk or negedge nreset) begin
+	if (!nreset) begin
+		jump_stall_prev <= 0;
+		flushing <= 0;
+	end else begin
+		jump_stall_prev <= jump_stall;
+
+		// encender flushing un ciclo después de que jump_stall se prende
+		if (~jump_stall_prev & jump_stall)
+			flushing <= 1;
+
+		// apagar cuando jump_stall se apaga
+		else if (~jump_stall)
+			flushing <= 0;
+	end
+end
+
+assign IFU_flush = flushing;
 
 endmodule
