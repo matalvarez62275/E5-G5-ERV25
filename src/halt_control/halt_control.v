@@ -12,6 +12,8 @@ module halt_control(
 	input wire [4:0] rs2_Alu,
 	input wire [4:0] rd_Alu,
 	input wire [14:0] instFlag_sl_EX,
+	input wire [4:0] rs1_sl_EX,
+	input wire [4:0] rs2_sl_EX,
 	input wire [4:0] rd_sl_EX,
 	input wire inst_is_jalr,
 	input wire inst_is_branch,
@@ -45,11 +47,17 @@ assign regaccess_blocked = regaccess_needs_alu_write || regaccess_needs_postalu_
 // ---------
 
 // -------- JALR y branch control
-wire jalr_rs1_dep = ~instFlag_sl_DE[4] && inst_is_jalr && (rs1_OpDec != rs1_sl_DE);
+wire jalr_rs1_dep = 
+		~instFlag_sl_EX[4] && inst_is_jalr && (
+		(rs1_OpDec != rs1_sl_DE) ||
+		(rs1_sl_DE != rs1_Alu) ||
+		(rs1_Alu != rs1_sl_EX)
+	);
 wire branch_rs_dep =
-    ~instFlag_Alu[3] && inst_is_branch && (
+		~instFlag_sl_EX[3] && inst_is_branch && (
         ((rs1_OpDec != rs1_sl_DE) && (rs2_OpDec != rs2_sl_DE)) ||
-        ((rs1_OpDec != rs1_Alu) && (rs2_OpDec != rs2_Alu))
+        ((rs1_OpDec != rs1_Alu) && (rs2_OpDec != rs2_Alu)) || 
+		  ((rs1_Alu != rs1_sl_EX) && (rs2_Alu != rs2_sl_EX))
 	);
 wire jump_stall;
 assign jump_stall = jalr_rs1_dep || branch_rs_dep;

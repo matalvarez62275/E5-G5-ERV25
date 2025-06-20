@@ -8,7 +8,6 @@ module OP_stageLatch(
 		input wire [31:0] PC,
 		input wire [31:0] rs1_data,
 		input wire [31:0] rs2_data,
-		input wire predicted_taken_DE,
 
 		input wire clk,
 		input wire en,
@@ -21,8 +20,7 @@ module OP_stageLatch(
 		output reg [14:0] instFlag_sl2,
 		output reg [31:0] PC_sl2,
 		output reg [31:0] rs1_data_sl2,
-		output reg [31:0] rs2_data_sl2,
-		output reg predicted_taken_sl2
+		output reg [31:0] rs2_data_sl2
 
 );
 
@@ -38,7 +36,6 @@ always @(posedge clk) begin
 		rs1_data_sl2 <= 0;
 		rs2_data_sl2 <= 0;
 		func3_sl2 <= 0;
-		predicted_taken_sl2 <= 0;
 	end else begin
 		instFlag_sl2 <= instFlag;
 		rd_sl2 <= rd;
@@ -49,7 +46,6 @@ always @(posedge clk) begin
 		rs1_data_sl2 <= rs1_data;
 		rs2_data_sl2 <= rs2_data;
 		func3_sl2 <= func3;
-		predicted_taken_sl2 <= predicted_taken_DE;
 	end
 end
 

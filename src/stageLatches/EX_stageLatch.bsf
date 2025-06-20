@@ -21,9 +21,9 @@ on the Quartus Prime software download page.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 248 256)
+	(rect 16 16 248 288)
 	(text "EX_stageLatch" (rect 5 0 67 12)(font "Arial" ))
-	(text "inst" (rect 8 224 20 236)(font "Arial" ))
+	(text "inst" (rect 8 256 20 268)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -90,16 +90,30 @@ on the Quartus Prime software download page.
 	(port
 		(pt 0 176)
 		(input)
-		(text "clk" (rect 0 0 10 12)(font "Arial" ))
-		(text "clk" (rect 21 171 31 183)(font "Arial" ))
-		(line (pt 0 176)(pt 16 176)(line_width 1))
+		(text "rs1_sel[4..0]" (rect 0 0 49 12)(font "Arial" ))
+		(text "rs1_sel[4..0]" (rect 21 171 70 183)(font "Arial" ))
+		(line (pt 0 176)(pt 16 176)(line_width 3))
 	)
 	(port
 		(pt 0 192)
 		(input)
+		(text "rs2_sel[4..0]" (rect 0 0 50 12)(font "Arial" ))
+		(text "rs2_sel[4..0]" (rect 21 187 71 199)(font "Arial" ))
+		(line (pt 0 192)(pt 16 192)(line_width 3))
+	)
+	(port
+		(pt 0 208)
+		(input)
+		(text "clk" (rect 0 0 10 12)(font "Arial" ))
+		(text "clk" (rect 21 203 31 215)(font "Arial" ))
+		(line (pt 0 208)(pt 16 208)(line_width 1))
+	)
+	(port
+		(pt 0 224)
+		(input)
 		(text "en" (rect 0 0 9 12)(font "Arial" ))
-		(text "en" (rect 21 187 30 199)(font "Arial" ))
-		(line (pt 0 192)(pt 16 192)(line_width 1))
+		(text "en" (rect 21 219 30 231)(font "Arial" ))
+		(line (pt 0 224)(pt 16 224)(line_width 1))
 	)
 	(port
 		(pt 232 32)
@@ -164,7 +178,21 @@ on the Quartus Prime software download page.
 		(text "alu_Z_sl3" (rect 171 155 211 167)(font "Arial" ))
 		(line (pt 232 160)(pt 216 160)(line_width 1))
 	)
+	(port
+		(pt 232 176)
+		(output)
+		(text "rs1_sel_sl3[4..0]" (rect 0 0 66 12)(font "Arial" ))
+		(text "rs1_sel_sl3[4..0]" (rect 145 171 211 183)(font "Arial" ))
+		(line (pt 232 176)(pt 216 176)(line_width 3))
+	)
+	(port
+		(pt 232 192)
+		(output)
+		(text "rs2_sel_sl3[4..0]" (rect 0 0 67 12)(font "Arial" ))
+		(text "rs2_sel_sl3[4..0]" (rect 144 187 211 199)(font "Arial" ))
+		(line (pt 232 192)(pt 216 192)(line_width 3))
+	)
 	(drawing
-		(rectangle (rect 16 16 216 224)(line_width 1))
+		(rectangle (rect 16 16 216 256)(line_width 1))
 	)
 )

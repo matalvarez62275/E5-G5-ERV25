@@ -6,7 +6,6 @@ module DE_stageLatch(
 		input wire [2:0] func3,
 		input wire [14:0] instFlag,
 		input wire [31:0] PC,
-		input wire predicted_taken_IFU,
 
 		input wire clk,
 		input wire en,
@@ -17,8 +16,7 @@ module DE_stageLatch(
 		output reg [4:0] rs2_sl1,
 		output reg [2:0] func3_sl1,
 		output reg [14:0] instFlag_sl1,
-		output reg [31:0] PC_sl1,
-		output reg predicted_taken_sl1
+		output reg [31:0] PC_sl1
 		
 
 );
@@ -33,7 +31,6 @@ always @(posedge clk) begin
 		imm_sl1 <= 0;
 		PC_sl1 <= 0;
 		func3_sl1 <= 0;
-		predicted_taken_sl1 <= 0;
 
 	end else begin
 		instFlag_sl1 <= instFlag;
@@ -43,7 +40,6 @@ always @(posedge clk) begin
 		imm_sl1 <= imm;
 		PC_sl1 <= PC;
 		func3_sl1 <= func3;
-		predicted_taken_sl1 <= predicted_taken_IFU;
 
 	end
 end
