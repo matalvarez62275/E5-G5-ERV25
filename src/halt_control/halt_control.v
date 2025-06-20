@@ -24,7 +24,10 @@ module halt_control(
 	output reg DE_en,
 	output reg OP_en,
 	output reg EX_en,
-	output wire IFU_flush
+	output wire IFU_flush,
+	output wire decoded_blocked,
+	output wire regaccess_blocked,
+	output wire jump_stall
 );
 
 
@@ -34,7 +37,7 @@ wire decoded_needs_regaccess_write = instFlag_sl_DE[14] && (rd_sl_DE != 5'b0) &&
 wire decoded_needs_alu_write = instFlag_Alu[14] && (rd_Alu != 5'b0) && ((rs1_OpDec === rd_Alu) || (rs2_OpDec === rd_Alu));
 wire decoded_needs_postalu_write = instFlag_sl_EX[14] && (rd_sl_EX != 5'b0) && ((rs1_OpDec === rd_sl_EX) || (rs2_OpDec === rd_sl_EX));
 
-wire decoded_blocked;
+//wire decoded_blocked;
 assign decoded_blocked = decoded_needs_regaccess_write || decoded_needs_alu_write || decoded_needs_postalu_write;
 // ---------
 
@@ -42,7 +45,7 @@ assign decoded_blocked = decoded_needs_regaccess_write || decoded_needs_alu_writ
 wire regaccess_needs_alu_write = instFlag_Alu[14] && (rd_Alu != 5'b0) && ((rs1_sl_DE === rd_Alu) || (rs2_sl_DE === rd_Alu));
 wire regaccess_needs_postalu_write = instFlag_sl_EX[0] && (rd_sl_EX != 5'b0) & ((rs1_sl_DE === rd_sl_EX) || (rs2_sl_DE === rd_sl_EX));
 
-wire regaccess_blocked;
+//wire regaccess_blocked;
 assign regaccess_blocked = regaccess_needs_alu_write || regaccess_needs_postalu_write;
 // ---------
 
@@ -59,7 +62,8 @@ wire branch_rs_dep =
         ((rs1_OpDec != rs1_Alu) && (rs2_OpDec != rs2_Alu)) || 
 		  ((rs1_Alu != rs1_sl_EX) && (rs2_Alu != rs2_sl_EX))
 	);
-wire jump_stall;
+//wire jump_stall;
+reg jump_stall_start;
 assign jump_stall = jalr_rs1_dep || branch_rs_dep;
 //
 
@@ -68,6 +72,7 @@ always @(decoded_blocked, regaccess_blocked, jump_stall) begin
 	DE_en <= 1;
 	OP_en <= 1;
 	EX_en <= 1;
+	jump_stall_start <= 0;
 	
 	// hazard in decoding stage
 	if(decoded_blocked) begin
@@ -82,6 +87,7 @@ always @(decoded_blocked, regaccess_blocked, jump_stall) begin
 	end
 	else if(jump_stall) begin
 		IFU_en <= 0;
+		jump_stall_start <= 1;
 	end
 end
 
@@ -93,7 +99,7 @@ always @(posedge clk or negedge nreset) begin
 	if (!nreset) begin
 		jump_stall_prev <= 0;
 		flushing <= 0;
-	end else begin
+	end else if (jump_stall_start) begin
 		jump_stall_prev <= jump_stall;
 
 		// encender flushing un ciclo después de que jump_stall se prende
@@ -103,7 +109,10 @@ always @(posedge clk or negedge nreset) begin
 		// apagar cuando jump_stall se apaga
 		else if (~jump_stall)
 			flushing <= 0;
-	end
+	end else if (~jump_stall_start) begin
+		jump_stall_prev <= 0;
+		flushing <= 0;
+	end		
 end
 
 assign IFU_flush = flushing;
