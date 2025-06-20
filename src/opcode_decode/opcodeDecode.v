@@ -88,7 +88,7 @@ module OpcodeDecode (
 				5'b11001:
 				begin
 					instFlags[RD_EN]			= 1;			
-					instFlags[RS1_EN]	 		= 0;		
+					instFlags[RS1_EN]	 		= 1;		
 					instFlags[RS2_EN]	 		= 0;
 					instFlags[IMM_EN]	 		= 1;
 					instFlags[ALU_INA]	 	= 0;	// PC
