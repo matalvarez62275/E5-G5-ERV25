@@ -135,7 +135,7 @@ module OpcodeDecode (
 					instFlags[ALU_INB]	 	= opcode[3];	// Some instructions use ONLY registers	
 					instFlags[ALU_EN]	 		= 1;
 					instFlags[ADD_FORCED]	= 0;
-					instFlags[ALU_OP]			= inst[30];		// when instructions with the same opcode and func3
+					instFlags[ALU_OP]			= (func3==3'b101 || (func3 == 3'b000 && opcode[3]==1'b1))?inst[30]:0;		// when instructions with the same opcode and func3
 					instFlags[IS_JAL]			= 0;
 					instFlags[IS_JALR]		= 0;
 					instFlags[IS_BRANCH]		= 0;

@@ -28,10 +28,14 @@ always @(*) begin
 	    ans = {1'b0, in_a} + 4;
 	else if (is_branch == 1'b1)	// BRANCH
 		begin //fijarse func3 para los unsigned
-			if(func3[2:1] == 2'b11)
+			if(func3[2:1] == 2'b11) begin 
 				branch_aux = in_a - in_b;
-			else
+				ALU_N = (in_a < in_b) ? 1'b1 : 1'b0;    // Negative flag 
+				end
+			else begin
 				branch_aux = $signed(in_a) - $signed(in_b);	
+				ALU_N = branch_aux[31];    // Negative flag 
+				end
     	end
 	else	// ALU operations
 		begin
@@ -40,7 +44,7 @@ always @(*) begin
 				3'b000:
 				begin
 					if (ALU_op == 1'b0)
-						ans = $signed({1'b0, in_a}) + $signed({1'b0, in_b}); // ADD
+						ans = $signed({in_a}) + $signed({in_b}); // ADD
                else
                   ans = $signed({1'b0, in_a}) - $signed({1'b0, in_b}); // SUB
             end
@@ -64,13 +68,14 @@ always @(*) begin
 			endcase
 		end
 
-    result = ans[31:0];
-
-	 if (is_branch == 1'b1)
-	 begin
-		ALU_Z = (branch_aux[31:0] == 32'b0) ? 1'b1 : 1'b0; // Zero flag
-		ALU_N = (branch_aux[31] == 1'b1) ? 1'b1 : 1'b0;    // Negative flag 
-	 end
+		result = ans[31:0];
+		ALU_Z = (in_a == in_b) ? 1'b1 : 1'b0; // Zero flag
+				
+//	 if (is_branch == 1'b1)
+//	 begin
+//		ALU_Z = (branch_aux[31:0] == 32'b0) ? 1'b1 : 1'b0; // Zero flag
+//		ALU_N = (branch_aux[31] == 1'b1) ? 1'b1 : 1'b0;    // Negative flag 
+//	 end
 	 
 end
 endmodule
