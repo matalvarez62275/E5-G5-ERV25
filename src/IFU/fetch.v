@@ -15,5 +15,5 @@ always @(posedge clk or negedge nreset) begin
 end
 	
 assign nxt_PC = programcounter;
-	
+
 endmodule

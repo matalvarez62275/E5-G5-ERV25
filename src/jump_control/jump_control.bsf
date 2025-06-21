@@ -21,7 +21,7 @@ on the Quartus Prime software download page.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 256 224)
+	(rect 16 16 264 224)
 	(text "jump_control" (rect 5 0 55 12)(font "Arial" ))
 	(text "inst" (rect 8 192 20 204)(font "Arial" ))
 	(port
@@ -48,8 +48,8 @@ on the Quartus Prime software download page.
 	(port
 		(pt 0 80)
 		(input)
-		(text "branch[2..0]" (rect 0 0 47 12)(font "Arial" ))
-		(text "branch[2..0]" (rect 21 75 68 87)(font "Arial" ))
+		(text "func3[2..0]" (rect 0 0 42 12)(font "Arial" ))
+		(text "func3[2..0]" (rect 21 75 63 87)(font "Arial" ))
 		(line (pt 0 80)(pt 16 80)(line_width 3))
 	)
 	(port
@@ -69,8 +69,8 @@ on the Quartus Prime software download page.
 	(port
 		(pt 0 128)
 		(input)
-		(text "rs1[31..0]" (rect 0 0 35 12)(font "Arial" ))
-		(text "rs1[31..0]" (rect 21 123 56 135)(font "Arial" ))
+		(text "rs1_data[31..0]" (rect 0 0 57 12)(font "Arial" ))
+		(text "rs1_data[31..0]" (rect 21 123 78 135)(font "Arial" ))
 		(line (pt 0 128)(pt 16 128)(line_width 3))
 	)
 	(port
@@ -88,27 +88,34 @@ on the Quartus Prime software download page.
 		(line (pt 0 160)(pt 16 160)(line_width 1))
 	)
 	(port
-		(pt 240 32)
+		(pt 0 176)
+		(input)
+		(text "en" (rect 0 0 9 12)(font "Arial" ))
+		(text "en" (rect 21 171 30 183)(font "Arial" ))
+		(line (pt 0 176)(pt 16 176)(line_width 1))
+	)
+	(port
+		(pt 248 32)
 		(output)
 		(text "JALR_address[31..0]" (rect 0 0 88 12)(font "Arial" ))
-		(text "JALR_address[31..0]" (rect 131 27 219 39)(font "Arial" ))
-		(line (pt 240 32)(pt 224 32)(line_width 3))
+		(text "JALR_address[31..0]" (rect 139 27 227 39)(font "Arial" ))
+		(line (pt 248 32)(pt 232 32)(line_width 3))
 	)
 	(port
-		(pt 240 48)
+		(pt 248 48)
 		(output)
-		(text "JALR_en" (rect 0 0 42 12)(font "Arial" ))
-		(text "JALR_en" (rect 177 43 219 55)(font "Arial" ))
-		(line (pt 240 48)(pt 224 48)(line_width 1))
+		(text "JALR_taken" (rect 0 0 54 12)(font "Arial" ))
+		(text "JALR_taken" (rect 173 43 227 55)(font "Arial" ))
+		(line (pt 248 48)(pt 232 48)(line_width 1))
 	)
 	(port
-		(pt 240 64)
+		(pt 248 64)
 		(output)
-		(text "jump" (rect 0 0 18 12)(font "Arial" ))
-		(text "jump" (rect 201 59 219 71)(font "Arial" ))
-		(line (pt 240 64)(pt 224 64)(line_width 1))
+		(text "branch_taken" (rect 0 0 54 12)(font "Arial" ))
+		(text "branch_taken" (rect 173 59 227 71)(font "Arial" ))
+		(line (pt 248 64)(pt 232 64)(line_width 1))
 	)
 	(drawing
-		(rectangle (rect 16 16 224 192)(line_width 1))
+		(rectangle (rect 16 16 232 192)(line_width 1))
 	)
 )
