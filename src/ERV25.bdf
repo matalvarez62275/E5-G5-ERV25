@@ -1217,7 +1217,7 @@ on the Quartus Prime software download page.
 	(annotation_block (parameter)(rect -368 224 -186 284))
 )
 (symbol
-	(rect 736 -200 928 8)
+	(rect 744 -200 936 8)
 	(text "ALU_Veri" (rect 5 0 51 11)(font "Arial" ))
 	(text "inst17" (rect 8 192 36 203)(font "Arial" ))
 	(port
@@ -2357,16 +2357,6 @@ on the Quartus Prime software download page.
 	(bus)
 )
 (connector
-	(pt 560 -152)
-	(pt 712 -152)
-	(bus)
-)
-(connector
-	(pt 712 -152)
-	(pt 736 -152)
-	(bus)
-)
-(connector
 	(pt 720 -288)
 	(pt 696 -288)
 	(bus)
@@ -2528,16 +2518,6 @@ on the Quartus Prime software download page.
 	(bus)
 )
 (connector
-	(text "instFlag_OP[4]" (rect 632 -64 703 -52)(font "Intel Clear" ))
-	(pt 736 -56)
-	(pt 704 -56)
-)
-(connector
-	(text "instFlag_OP[5]" (rect 632 -80 703 -68)(font "Intel Clear" ))
-	(pt 736 -72)
-	(pt 704 -72)
-)
-(connector
 	(text "instFlag_OP[14..0]" (rect 624 -336 712 -324)(font "Intel Clear" ))
 	(pt 720 -320)
 	(pt 648 -320)
@@ -2596,16 +2576,6 @@ on the Quartus Prime software download page.
 (connector
 	(pt 560 -168)
 	(pt 560 -208)
-	(bus)
-)
-(connector
-	(pt 560 -168)
-	(pt 696 -168)
-	(bus)
-)
-(connector
-	(pt 696 -168)
-	(pt 736 -168)
 	(bus)
 )
 (connector
@@ -2705,36 +2675,6 @@ on the Quartus Prime software download page.
 	(bus)
 )
 (connector
-	(pt 968 -168)
-	(pt 1104 -168)
-	(bus)
-)
-(connector
-	(pt 928 -168)
-	(pt 968 -168)
-	(bus)
-)
-(connector
-	(text "instFlag_OP[8]" (rect 632 -128 703 -116)(font "Intel Clear" ))
-	(pt 704 -120)
-	(pt 736 -120)
-)
-(connector
-	(text "instFlag_OP[7]" (rect 632 -112 703 -100)(font "Intel Clear" ))
-	(pt 704 -104)
-	(pt 736 -104)
-)
-(connector
-	(text "instFlag_OP[6]" (rect 632 -96 703 -84)(font "Intel Clear" ))
-	(pt 736 -88)
-	(pt 704 -88)
-)
-(connector
-	(text "instFlag_OP[3]" (rect 632 -48 703 -36)(font "Intel Clear" ))
-	(pt 704 -40)
-	(pt 736 -40)
-)
-(connector
 	(pt -528 208)
 	(pt -672 208)
 	(bus)
@@ -2791,16 +2731,8 @@ on the Quartus Prime software download page.
 	(bus)
 )
 (connector
-	(pt 1128 -152)
-	(pt 1128 208)
-)
-(connector
 	(pt 1128 208)
 	(pt 976 208)
-)
-(connector
-	(pt 1112 -136)
-	(pt 1112 192)
 )
 (connector
 	(pt 1112 192)
@@ -2847,16 +2779,6 @@ on the Quartus Prime software download page.
 	(pt -504 -200)
 	(pt -504 -280)
 	(bus)
-)
-(connector
-	(text "ALU_Z" (rect 938 -168 969 -156)(font "Intel Clear" ))
-	(pt 928 -152)
-	(pt 1128 -152)
-)
-(connector
-	(text "ALU_N" (rect 938 -152 971 -140)(font "Intel Clear" ))
-	(pt 928 -136)
-	(pt 1112 -136)
 )
 (connector
 	(pt -520 -56)
@@ -3181,12 +3103,6 @@ on the Quartus Prime software download page.
 	(text "rd_OP[4..0]" (rect 240 -192 295 -180)(font "Intel Clear" ))
 	(pt 208 -184)
 	(pt 224 -184)
-	(bus)
-)
-(connector
-	(text "func3_OP[2..0]" (rect 234 -152 305 -140)(font "Intel Clear" ))
-	(pt 736 -136)
-	(pt 208 -136)
 	(bus)
 )
 (connector
@@ -3749,6 +3665,90 @@ on the Quartus Prime software download page.
 	(pt -112 64)
 	(pt -112 112)
 	(bus)
+)
+(connector
+	(pt 1128 208)
+	(pt 1128 -152)
+)
+(connector
+	(pt 1112 192)
+	(pt 1112 -136)
+)
+(connector
+	(text "ALU_Z" (rect 946 -168 977 -156)(font "Intel Clear" ))
+	(pt 1128 -152)
+	(pt 936 -152)
+)
+(connector
+	(text "ALU_N" (rect 946 -152 979 -140)(font "Intel Clear" ))
+	(pt 1112 -136)
+	(pt 936 -136)
+)
+(connector
+	(pt 560 -168)
+	(pt 696 -168)
+	(bus)
+)
+(connector
+	(pt 936 -168)
+	(pt 968 -168)
+	(bus)
+)
+(connector
+	(pt 968 -168)
+	(pt 1104 -168)
+	(bus)
+)
+(connector
+	(pt 560 -152)
+	(pt 712 -152)
+	(bus)
+)
+(connector
+	(pt 696 -168)
+	(pt 744 -168)
+	(bus)
+)
+(connector
+	(pt 712 -152)
+	(pt 744 -152)
+	(bus)
+)
+(connector
+	(text "func3_OP[2..0]" (rect 242 -152 313 -140)(font "Intel Clear" ))
+	(pt 208 -136)
+	(pt 744 -136)
+	(bus)
+)
+(connector
+	(text "instFlag_OP[8]" (rect 640 -128 711 -116)(font "Intel Clear" ))
+	(pt 712 -120)
+	(pt 744 -120)
+)
+(connector
+	(text "instFlag_OP[7]" (rect 640 -112 711 -100)(font "Intel Clear" ))
+	(pt 712 -104)
+	(pt 744 -104)
+)
+(connector
+	(text "instFlag_OP[6]" (rect 640 -96 711 -84)(font "Intel Clear" ))
+	(pt 712 -88)
+	(pt 744 -88)
+)
+(connector
+	(text "instFlag_OP[5]" (rect 640 -80 711 -68)(font "Intel Clear" ))
+	(pt 712 -72)
+	(pt 744 -72)
+)
+(connector
+	(text "instFlag_OP[4]" (rect 640 -64 711 -52)(font "Intel Clear" ))
+	(pt 712 -56)
+	(pt 744 -56)
+)
+(connector
+	(text "instFlag_OP[3]" (rect 640 -48 711 -36)(font "Intel Clear" ))
+	(pt 712 -40)
+	(pt 744 -40)
 )
 (junction (pt -760 -184))
 (junction (pt -160 240))

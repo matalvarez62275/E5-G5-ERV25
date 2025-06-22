@@ -29,12 +29,11 @@ always @(*) begin
 	else if (is_branch == 1'b1)	// BRANCH
 		begin //fijarse func3 para los unsigned
 			if(func3[2:1] == 2'b11) begin 
-				branch_aux = in_a - in_b;
+				//branch_aux = in_a - in_b;
 				ALU_N = (in_a < in_b) ? 1'b1 : 1'b0;    // Negative flag 
 				end
 			else begin
-				branch_aux = $signed(in_a) - $signed(in_b);	
-				ALU_N = branch_aux[31];    // Negative flag 
+				ALU_N = ($signed(in_a) < $signed(in_b)) ? 1'b1 : 1'b0;
 				end
     	end
 	else	// ALU operations
@@ -44,7 +43,7 @@ always @(*) begin
 				3'b000:
 				begin
 					if (ALU_op == 1'b0)
-						ans = $signed({in_a}) + $signed({in_b}); // ADD
+						ans = $signed({1'b0, in_a}) + $signed({1'b0, in_b}); // ADD
                else
                   ans = $signed({1'b0, in_a}) - $signed({1'b0, in_b}); // SUB
             end
@@ -59,7 +58,7 @@ always @(*) begin
 					if (ALU_op == 1'b0)
 						ans = {1'b0, in_a} >> in_b[4:0]; // SRL
                else
-						ans = $signed({1'b0, in_a}) >>> in_b[4:0]; // SRA
+						ans = $signed({in_a[31], in_a}) >>> in_b[4:0]; // SRA
             end
 
             3'b010: ans = ($signed(in_a) < $signed(in_b)) ? 33'b1 : 33'b0; // SLT
