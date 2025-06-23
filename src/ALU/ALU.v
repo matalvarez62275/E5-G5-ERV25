@@ -37,11 +37,11 @@ always @(*) begin
 		
 		// BLTU and BGEU
 		if (func3[2])
-			ans = in_a - in_b;
+			ALU_N = (in_a < in_b) ? 1'b1 : 1'b0;
 		
 		// BEQ, BNE, BLT and BGE
 		else
-			ans = $signed(in_a) - $signed(in_b);	
+			ALU_N = ($signed(in_a) < $signed(in_b)) ? 1'b1 : 1'b0;	
 	end
 	
 	// ALU operations
@@ -76,7 +76,6 @@ always @(*) begin
 		end
 
     result = ans[31:0];
-    ALU_Z = (ans[31:0] == 32'b0) ? 1'b1 : 1'b0; // Zero flag
-    ALU_N = (ans[32] == 1'b1) ? 1'b1 : 1'b0;    // Negative flag
+    ALU_Z = (in_a == in_b) ? 1'b1 : 1'b0; // Zero flag
 end
 endmodule

@@ -8,6 +8,8 @@ module EX_stageLatch(
 		input wire [31:0] PC,
 		input wire ALU_N,
 		input wire ALU_Z,
+		input wire [4:0] rs1_sel,
+		input wire [4:0] rs2_sel,	
 		
 		input wire clk,
 		input wire en,
@@ -20,7 +22,9 @@ module EX_stageLatch(
 		output reg [31:0] imm_sl3,
 		output reg [31:0] PC_sl3,
 		output reg ALU_N_sl3,
-		output reg ALU_Z_sl3
+		output reg ALU_Z_sl3,
+		output reg [4:0] rs1_sel_sl3,
+		output reg [4:0] rs2_sel_sl3
 );
 
 
@@ -35,6 +39,8 @@ always @(posedge clk) begin
 		ALU_N_sl3 		<= 0;
 		ALU_Z_sl3 		<= 0;
 		PC_sl3 			<= 0;
+		rs1_sel_sl3 	<= 0;
+		rs2_sel_sl3 	<= 0;
 
 	end else begin
 		result_sl3 		<= result;
@@ -46,6 +52,8 @@ always @(posedge clk) begin
 		ALU_N_sl3 		<= ALU_N;
 		ALU_Z_sl3 		<= ALU_Z;
 		PC_sl3 			<= PC;
+		rs1_sel_sl3 <= rs1_sel;
+		rs2_sel_sl3 <= rs2_sel;
 	end
 end
 endmodule 

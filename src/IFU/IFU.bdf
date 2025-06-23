@@ -70,22 +70,6 @@ on the Quartus Prime software download page.
 )
 (pin
 	(input)
-	(rect -1288 16 -1120 32)
-	(text "INPUT" (rect 125 0 153 9)(font "Arial" (font_size 6)))
-	(text "imm_EX" (rect 5 0 45 10)(font "Arial" ))
-	(pt 168 8)
-	(drawing
-		(line (pt 84 12)(pt 109 12))
-		(line (pt 84 4)(pt 109 4))
-		(line (pt 113 8)(pt 168 8))
-		(line (pt 84 12)(pt 84 4))
-		(line (pt 109 4)(pt 113 8))
-		(line (pt 109 12)(pt 113 8))
-	)
-	(text "VCC" (rect 128 7 148 16)(font "Arial" (font_size 6)))
-)
-(pin
-	(input)
 	(rect -1288 32 -1120 48)
 	(text "INPUT" (rect 125 0 153 9)(font "Arial" (font_size 6)))
 	(text "imm[31..0]" (rect 5 0 55 12)(font "Intel Clear" ))
@@ -104,7 +88,7 @@ on the Quartus Prime software download page.
 	(input)
 	(rect -1288 88 -1120 104)
 	(text "INPUT" (rect 125 0 153 9)(font "Arial" (font_size 6)))
-	(text "JALR_taken" (rect 5 0 65 12)(font "Intel Clear" ))
+	(text "JALR_taken" (rect 5 0 64 12)(font "Intel Clear" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -120,7 +104,7 @@ on the Quartus Prime software download page.
 	(input)
 	(rect -1288 72 -1120 88)
 	(text "INPUT" (rect 125 0 153 9)(font "Arial" (font_size 6)))
-	(text "branch_taken" (rect 5 0 72 10)(font "Arial" ))
+	(text "branch_taken" (rect 5 0 71 10)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -136,7 +120,7 @@ on the Quartus Prime software download page.
 	(input)
 	(rect -1288 168 -1120 184)
 	(text "INPUT" (rect 125 0 153 9)(font "Arial" (font_size 6)))
-	(text "flush" (rect 5 0 30 10)(font "Arial" ))
+	(text "flush" (rect 5 0 29 10)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -152,7 +136,7 @@ on the Quartus Prime software download page.
 	(input)
 	(rect -1312 -48 -1120 -32)
 	(text "INPUT" (rect 149 0 177 9)(font "Arial" (font_size 6)))
-	(text "JALR_address[31..0]" (rect 5 0 103 12)(font "Intel Clear" ))
+	(text "JALR_address[31..0]" (rect 5 0 102 12)(font "Intel Clear" ))
 	(pt 192 8)
 	(drawing
 		(line (pt 108 12)(pt 133 12))
@@ -163,6 +147,22 @@ on the Quartus Prime software download page.
 		(line (pt 133 12)(pt 137 8))
 	)
 	(text "VCC" (rect 152 7 172 16)(font "Arial" (font_size 6)))
+)
+(pin
+	(input)
+	(rect -1288 16 -1120 32)
+	(text "INPUT" (rect 125 0 153 9)(font "Arial" (font_size 6)))
+	(text "imm_EX[31..0]" (rect 5 0 76 10)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 16)(font "Arial" (font_size 6)))
 )
 (pin
 	(output)
@@ -1949,10 +1949,6 @@ on the Quartus Prime software download page.
 	(pt -728 152)
 )
 (connector
-	(pt -640 176)
-	(pt -528 176)
-)
-(connector
 	(pt -640 296)
 	(pt -616 296)
 )
@@ -2042,6 +2038,11 @@ on the Quartus Prime software download page.
 	(text "is_jump" (rect -896 224 -860 236)(font "Intel Clear" ))
 	(pt -920 232)
 	(pt -904 232)
+)
+(connector
+	(text "JAL_taken" (rect -630 160 -579 172)(font "Intel Clear" ))
+	(pt -640 176)
+	(pt -528 176)
 )
 (junction (pt -1024 80))
 (junction (pt -104 40))
