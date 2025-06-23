@@ -140,3 +140,5 @@ Thumbs.db
 # OS-specific
 *.swp
 *~
+
+src/simulation/
