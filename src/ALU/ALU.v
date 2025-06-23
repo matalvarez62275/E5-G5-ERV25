@@ -66,7 +66,7 @@ always @(*) begin
 					if (ALU_op == 1'b0)
 						ans = {1'b0, in_a} >> in_b[4:0]; // SRL
 					else
-						ans = $signed({1'b0, in_a}) >>> in_b[4:0]; // SRA
+						ans = $signed({in_a[31], in_a}) >>> in_b[4:0]; // SRA
             end
 
             3'b010: ans = ($signed(in_a) < $signed(in_b)) ? 33'b1 : 33'b0; // SLT
