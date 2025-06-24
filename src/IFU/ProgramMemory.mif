@@ -14,25 +14,31 @@
 -- on the Quartus Prime software download page.
 
 -- Quartus Prime generated Memory Initialization File (.mif)
-
 WIDTH=32;
 DEPTH=2048;
 ADDRESS_RADIX=HEX;
 DATA_RADIX=HEX;
 CONTENT BEGIN
-	0 : 800002b7;
-	1 : 0ff00313;
-	2 : 006282a3;
-	3 : 00028023;
-	4 : 00100e13;
-	5 : 00018eb7;
-	6 : 6a0e8e93;
-	7 : 00100f13;
-	8 : 00100513;
-	9 : 00a28023;
-	a : 00af05b3;
-	b : 00050f13;
-	c : 00058513;
-	d : 00100e13;
-	e : fedff06f;
+	0 : 000002b7;
+	1 : 00028293;
+	2 : 00000337;
+	3 : 02030313;
+	4 : 00400393;
+	5 : 00000e13;
+	6 : 027e0e63;
+	7 : 002e1e93;
+	8 : 01d28f33;
+	9 : 000f2f83;
+	a : 004f2e83;
+	b : 01df8fb3;
+	c : 008f2e83;
+	d : 01df8fb3;
+	e : 00cf2e83;
+	f : 01df8fb3;
+	10 : 402fdf93;
+	11 : 01f32023;
+	12 : 00430313;
+	13 : 001e0e13;
+	14 : fc9ff06f;
+	15 : 00000013;
 CONTENT END
